@@ -8,6 +8,8 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
+use App\Services\AuthService;
+use App\Helpers\Helper;
 
 /**
  * Shared configuration service
@@ -122,4 +124,25 @@ $di->setShared('router', function () {
     );
 
     return $router;
+});
+
+/**
+ * Register authService
+ */
+$di->setShared('authService', function () {
+    return new AuthService();
+});
+/**
+ * Register security
+ */
+$di->setShared('security', function () {
+    $security = new \Phalcon\Security();
+    $security->setWorkFactor(12); // độ mạnh (10–12 là ổn)
+    return $security;
+});
+/**
+ * Register helpers
+ */
+$di->setShared('helpers', function () {
+    return new Helper();
 });

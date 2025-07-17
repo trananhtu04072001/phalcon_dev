@@ -8,7 +8,9 @@ class AuthController extends ControllerBase
     }
 
     public function registerAction() {
-        echo 'man dang ky';
+        if ($this->request->getPost()) {
+            $result = $this->authService->register($this->request->getPost());
+        }
     }
 }
 
