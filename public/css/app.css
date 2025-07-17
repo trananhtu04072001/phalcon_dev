@@ -1,4 +1,47 @@
 .container-form-register {
     max-width: 400px;
-    margin-top: 100px !important;
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+}
+
+/* .login-page,
+.register-page {
+  background: #d2d6de;
+} */
+
+.login-box,
+.register-box {
+    width: 460px;
+    margin: 5% auto
+}
+
+.login-logo,
+.register-logo {
+  font-size: 35px;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 300;
+}
+.login-logo a,
+.register-logo a {
+  color: #444;
+}
+
+.login-box-body,
+.register-box-body {
+  background: #fff;
+  padding: 20px;
+  border-top: 0;
+  color: #666;
+}
+.login-box-body .form-control-feedback,
+.register-box-body .form-control-feedback {
+  color: #777;
+}
+
+.login-box-msg,
+.register-box-msg {
+  margin: 0;
+  text-align: center;
+  padding: 0 20px 20px 20px;
 }
