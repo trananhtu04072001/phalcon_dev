@@ -5,6 +5,7 @@ namespace App\Services;
 use Phalcon\Di\Injectable;
 use App\Models\Users;
 use App\Validations\RegisterValidation;
+use App\Validations\LoginValidation;
 
 class AuthService extends Injectable {
     public function register($data) {
@@ -27,5 +28,23 @@ class AuthService extends Injectable {
             $this->flashSession->success('Đăng ký thành công!');
             return $this->response->redirect('auth/register');
         }
+    }
+
+    public function login($data) {
+        $validator = new LoginValidation();
+        $errors = $validator->validate($data);
+        if (count($errors)) {
+            foreach ($errors as $msg) {
+                $this->flashSession->error($msg);
+            }
+            return ['success' => false, 'errors' => $errors];
+        }
+        $user = Users::findFirstByEmail($data['email']);
+        if (!$user || !$this->security->checkHash($data['password'], $user->password)) {
+            $this->flashSession->error('Thông tin đăng nhập không chính xác.');
+        }
+        // Đăng nhập thành công
+        $this->session->set('user', $user->toArray());
+        return $this->response->redirect('dashboard/index');
     }
 }
