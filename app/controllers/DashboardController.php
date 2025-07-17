@@ -4,6 +4,7 @@ class DashboardController extends ControllerBase
 {
     public function indexAction()
     {
-        echo 'Dashboard!';
+        $userLogged = $this->userLogged;
+        $this->view->setVar('userLogged', $userLogged);  
     }
 }

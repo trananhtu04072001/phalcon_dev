@@ -6,6 +6,7 @@ use Phalcon\Di\Injectable;
 use App\Models\Users;
 use App\Validations\RegisterValidation;
 use App\Validations\LoginValidation;
+use App\Enums\UserRole;
 
 class AuthService extends Injectable {
     public function register($data) {
@@ -24,6 +25,7 @@ class AuthService extends Injectable {
         $user->phone = $data['phone'] ?? '';
         $user->avatar = '/images/default-avatar.png';
         $user->password = $this->security->hash($data['password']) ?? '';
+        $user->role = UserRole::ADMIN;
         if ($user->save()) {
             $this->flashSession->success('Đăng ký thành công!');
             return $this->response->redirect('auth/register');
@@ -45,6 +47,6 @@ class AuthService extends Injectable {
         }
         // Đăng nhập thành công
         $this->session->set('user', $user->toArray());
-        return $this->response->redirect('dashboard/index');
+        return $this->response->redirect('dashboard');
     }
 }
