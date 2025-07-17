@@ -5,9 +5,7 @@
         </div>
         <div class="register-box-body border rounded">
             <p class="register-box-msg">Điền thông tin để tạo tài khoản mới</p>
-            {% if flashSession.has() %}
-                <div class="alert alert-danger">{{ flashSession.output() }}</div>
-            {% endif %}
+            {% include 'components/messages.volt' %}
             <form method="post" action="{{ url('auth/register') }}">
                 <div class="form-group has-feedback">
                     <input class="form-control" type="text" name="name" placeholder="Tên đăng nhập">

@@ -5,8 +5,11 @@
         </div>
         <div class="register-box-body border rounded">
             <p class="register-box-msg">Điền thông tin để tạo tài khoản mới</p>
-            <?php if ($this->flashSession->has()) { ?>
-                <div class="alert alert-danger"><?= $this->flashSession->output() ?></div>
+            <?php if ($this->flashSession->has('errors')) { ?>
+                <div class="alert alert-danger"><?= $this->flashSession->output('errors') ?></div>
+            <?php } ?>
+            <?php if ($this->flashSession->has('success')) { ?>
+                <div class="alert alert-success"><?= $this->flashSession->output('success') ?></div>
             <?php } ?>
             <form method="post" action="<?= $this->url->get('auth/register') ?>">
                 <div class="form-group has-feedback">

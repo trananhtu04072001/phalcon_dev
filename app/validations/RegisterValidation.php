@@ -39,6 +39,9 @@ class RegisterValidation extends Validation
             'min' => 10,
             'message' => 'Yêu cầu nhập tối thiểu 10 số.',
         ]));
+        $this->add('password', new PresenceOf([
+            'message' => 'Mật khẩu không được để trống.',
+        ]));
         $this->add('password', new StringLength([
             'min' => 6,
             'message' => 'Mật khẩu phải có ít nhất 6 ký tự.',
