@@ -14,5 +14,11 @@ class AuthController extends ControllerBase
             $result = $this->authService->register($this->request->getPost());
         }
     }
+
+    public function logoutAction() {
+        $this->session->remove('auth');
+        $this->flashSession->success('Bạn đã đăng xuất.');
+        return $this->response->redirect('auth/login');
+    }
 }
 

@@ -9,6 +9,7 @@ use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
 use App\Services\AuthService;
+use App\Services\UserService;
 use App\Helpers\Helper;
 
 /**
@@ -133,6 +134,12 @@ $di->setShared('authService', function () {
     return new AuthService();
 });
 /**
+ * Register userService
+ */
+$di->setShared('userService', function () {
+    return new UserService();
+});
+/**
  * Register security
  */
 $di->setShared('security', function () {
@@ -145,4 +152,11 @@ $di->setShared('security', function () {
  */
 $di->setShared('helpers', function () {
     return new Helper();
+});
+/**
+ * Account logged
+ */
+$di->setShared('userLogged', function () use ($di) {
+    $session = $di->getShared('session');
+    return $session->get('user');
 });
