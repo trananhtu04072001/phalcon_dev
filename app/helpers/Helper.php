@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Phalcon\Http\Request\File;
+
 class Helper {
     public static function dd($data) {
         echo '<pre>';

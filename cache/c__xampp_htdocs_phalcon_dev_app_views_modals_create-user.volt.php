@@ -1,7 +1,7 @@
 <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form id="createUserForm">
+      <form id="createUserForm" enctype="multipart/form-data">
         <div class="modal-header">
           <h5 class="modal-title" id="createUserLabel">Thêm người dùng mới</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
@@ -23,7 +23,11 @@
           </div>
           <div class="form-group">
             <label for="phone">Số điện thoại</label>
-            <input type="phone" class="form-control" id="phone" name="phone">
+            <input type="text" class="form-control" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="avatar">Ảnh</label>
+            <input type="file" class="form-control" id="avatar" name="avatar">
           </div>
           <div class="form-group">
             <label for="role">Quyền</label>
