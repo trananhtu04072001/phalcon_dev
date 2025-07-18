@@ -53,7 +53,7 @@ $(document).ready(function () {
     $("#updateUserModal").modal("show");
   });
 
-    $('#updateUserForm').on('submit', function (e) {
+  $('#updateUserForm').on('submit', function (e) {
     e.preventDefault();
     var formData = new FormData(this); 
     $.ajax({
@@ -85,5 +85,14 @@ $(document).ready(function () {
         }
       }
     });
+  });
+
+  $('.btn-show-user').on("click", function() {
+    $('#detail_name').val($(this).data('name'));
+    $('#detail_full_name').val($(this).data('fullName'));
+    $('#detail_email').val($(this).data('email'));
+    $('#detail_role').val($(this).data('role'));
+    $('#detail_avatar').val($(this).data('avatar'));
+    $("#userDetailModal").modal("show");
   });
 });
