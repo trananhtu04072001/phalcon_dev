@@ -55,12 +55,14 @@ class UserService extends Injectable {
                 'errors' => $errors
             ];
         }
-        if (!empty($data) && !empty($reqFile)) {
+        if (!empty($data)) {
             $user = Users::findFirstById($id ?? null);
             $user->name = $data['name'] ?? '';
             $user->full_name = $data['full_name'] ?? '';
-            $user->email = $data['email'] ?? '';    
-            $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar') ?? '/images/default-avatar.png';
+            $user->email = $data['email'] ?? '';
+            if (!empty($reqFile)) {
+                $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar');
+            } 
             $passwordPlain = bin2hex(random_bytes(4));
             $user->password = $this->security->hash($passwordPlain) ?? '';
             $user->role = $data['role'] ?? UserRole::USER;
