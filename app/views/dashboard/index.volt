@@ -32,12 +32,14 @@
 							<a href="#" class="btn btn-sm btn-info mr-1" title="Xem">
 								Xem
 							</a>
-							<a href="#" class="btn btn-sm btn-warning mr-1" title="Sửa">
+							<a href="#" class="btn btn-sm btn-warning mr-1 btn-edit-user" title="Sửa" 
+							data-id="{{ user.id }}" data-name="{{ user.name }}" data-full-name="{{ user.full_name }}"
+							data-email="{{ user.email }}" data-role="{{ user.role }}">
 								Sửa
 							</a>
-							<a href="#" class="btn btn-sm btn-danger" title="Xóa">
+							{# <a href="#" class="btn btn-sm btn-danger" title="Xóa">
 								Xóa
-							</a>
+							</a> #}
 						</td>
 					</tr>
 				{% else %}
@@ -49,4 +51,5 @@
 		</table>
 	</div>
 	{% include 'modals/create-user.volt' %}
+	{% include 'modals/update-user.volt' %}
 {% endblock %}

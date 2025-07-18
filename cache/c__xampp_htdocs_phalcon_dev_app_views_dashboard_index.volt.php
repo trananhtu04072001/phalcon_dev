@@ -7,6 +7,7 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Trang chủ</title>
         <link rel="stylesheet" href="<?php echo $this->url->get('css/app.css')?>"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
     </head>
@@ -77,12 +78,12 @@
 							<a href="#" class="btn btn-sm btn-info mr-1" title="Xem">
 								Xem
 							</a>
-							<a href="#" class="btn btn-sm btn-warning mr-1" title="Sửa">
+							<a href="#" class="btn btn-sm btn-warning mr-1 btn-edit-user" title="Sửa" 
+							data-id="<?= $user->id ?>" data-name="<?= $user->name ?>" data-full-name="<?= $user->full_name ?>"
+							data-email="<?= $user->email ?>" data-role="<?= $user->role ?>">
 								Sửa
 							</a>
-							<a href="#" class="btn btn-sm btn-danger" title="Xóa">
-								Xóa
-							</a>
+							
 						</td>
 					</tr>
 				<?php } if (!$v35149773421iterated) { ?>
@@ -107,19 +108,19 @@
           <div class="form-group">
             <label for="name">Tên đăng nhập</label>
             <input type="text" class="form-control" id="name" name="name">
+            <div class="text-danger error-msg" data-name="name"></div>
           </div>
           <div class="form-group">
             <label for="fullName">Tên đầy đủ</label>
             <input type="text" class="form-control" id="fullName" name="full_name">
+            <div class="text-danger error-msg" data-name="full_name"></div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email">
+            <div class="text-danger error-msg" data-name="email"></div>
           </div>
-          <div class="form-group">
-            <label for="phone">Số điện thoại</label>
-            <input type="text" class="form-control" id="phone" name="phone">
-          </div>
+          
           <div class="form-group">
             <label for="avatar">Ảnh</label>
             <input type="file" class="form-control" id="avatar" name="avatar">
@@ -131,6 +132,57 @@
               <option value="user">User</option>
               <option value="admin">Admin</option>
             </select>
+            <div class="text-danger error-msg" data-name="role"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+	<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="updateUserForm" enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateUserModal">Cập nhật người dùng</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+            <span aria-hidden="true">&times;</span>
+          </button> 
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="name">Tên đăng nhập</label>
+            <input type="text" class="form-control" id="edit_name" name="name">
+            <div class="text-danger error-msg" data-name="name"></div>
+          </div>
+          <div class="form-group">
+            <label for="fullName">Tên đầy đủ</label>
+            <input type="text" class="form-control" id="edit_full_Name" name="full_name">
+            <div class="text-danger error-msg" data-name="full_name"></div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="edit_email" name="email">
+            <div class="text-danger error-msg" data-name="email"></div>
+          </div>
+          
+          <div class="form-group">
+            <label for="avatar">Ảnh</label>
+            <input type="file" class="form-control" id="avatar" name="avatar">
+          </div>
+          <div class="form-group">
+            <label for="role">Quyền</label>
+            <select class="form-control" id="edit_role" name="role">
+              <option value="">Chọn quyền</option>
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <div class="text-danger error-msg" data-name="role"></div>
           </div>
         </div>
         <div class="modal-footer">
@@ -148,6 +200,7 @@
         </div>
         <!-- jQuery first, then Popper.js, and then Bootstrap's JavaScript -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script src="<?php echo $this->url->get('js/app.js')?>" crossorigin="anonymous"></script>
