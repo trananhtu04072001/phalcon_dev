@@ -11,8 +11,7 @@ $(function() {
 $(document).ready(function () {
   $('#createUserForm').on('submit', function (e) {
     e.preventDefault();
-    var form = $('#createUserForm')[0];
-    var formData = new FormData(form);  
+    var formData = new FormData(this); 
     $.ajax({
       url: 'user/create', // URL xử lý tạo user
       method: 'POST',

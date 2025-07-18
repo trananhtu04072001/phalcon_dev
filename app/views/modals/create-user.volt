@@ -27,7 +27,7 @@
           </div>
           <div class="form-group">
             <label for="avatar">Ảnh</label>
-            <input type="flie" class="form-control" id="avatar" name="avatar">
+            <input type="file" class="form-control" id="avatar" name="avatar">
           </div>
           <div class="form-group">
             <label for="role">Quyền</label>
