@@ -24,11 +24,7 @@
             <input type="email" class="form-control" id="email" name="email">
             <div class="text-danger error-msg" data-name="email"></div>
           </div>
-          {# <div class="form-group">
-            <label for="phone">Số điện thoại</label>
-            <input type="text" class="form-control" id="phone" name="phone">
-            <div class="text-danger error-msg" data-name="phone"></div>
-          </div> #}
+          
           <div class="form-group">
             <label for="avatar">Ảnh</label>
             <input type="file" class="form-control" id="avatar" name="avatar">
