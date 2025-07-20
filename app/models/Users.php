@@ -3,7 +3,6 @@ namespace App\Models;
 
 use Phalcon\Validation;
 use Phalcon\Validation\Validator\Email as EmailValidator;
-use App\Validations\UserValidation;
 
 class Users extends \Phalcon\Mvc\Model
 {
@@ -30,12 +29,6 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $avatar;
-
-    /**
-     *
-     * @var string
-     */
     public $email;
 
     /**
@@ -48,7 +41,25 @@ class Users extends \Phalcon\Mvc\Model
      *
      * @var string
      */
+    public $avatar;
+
+    /**
+     *
+     * @var string
+     */
     public $role;
+
+    /**
+     *
+     * @var string
+     */
+    public $reset_token;
+
+    /**
+     *
+     * @var string
+     */
+    public $reset_token_expire;
 
     /**
      *
@@ -69,7 +80,18 @@ class Users extends \Phalcon\Mvc\Model
      */
     // public function validation()
     // {
-    //     $validator = new UserValidation();
+    //     $validator = new Validation();
+
+    //     $validator->add(
+    //         'email',
+    //         new EmailValidator(
+    //             [
+    //                 'model'   => $this,
+    //                 'message' => 'Please enter a correct email address',
+    //             ]
+    //         )
+    //     );
+
     //     return $this->validate($validator);
     // }
 
