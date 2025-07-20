@@ -18,7 +18,7 @@
             <p><strong>Họ tên:</strong> <span id="detail_full_name"></span></p>
             <hr>
             <p><strong>Email:</strong> <span id="detail_email"></span></p>
-            {# <p><strong>Điện thoại:</strong> <span id="detail_phone"></span></p> #}
+            
             <hr>
             <p><strong>Quyền:</strong> <span id="detail_role"></span></p>
             <hr>

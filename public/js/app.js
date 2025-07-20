@@ -88,11 +88,11 @@ $(document).ready(function () {
   });
 
   $('.btn-show-user').on("click", function() {
-    $('#detail_name').val($(this).data('name'));
-    $('#detail_full_name').val($(this).data('fullName'));
-    $('#detail_email').val($(this).data('email'));
-    $('#detail_role').val($(this).data('role'));
-    $('#detail_avatar').val($(this).data('avatar'));
+    $('#detail_name').text($(this).data('name'));
+    $('#detail_full_name').text($(this).data('fullName'));
+    $('#detail_email').text($(this).data('email'));
+    $('#detail_role').text($(this).data('role'));
+    $('#detail_avatar').attr('src', $(this).data('avatar'));
     $("#userDetailModal").modal("show");
   });
 });

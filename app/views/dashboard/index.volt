@@ -29,12 +29,12 @@
 						<td>{{ user.full_name }}</td>
 						<td>{{ user.email }}</td>
 						<td class="text-center">
-							<a href="" class="btn btn-sm btn-info mr-1 btn-show-user" title="Xem"
+							<a href="#" class="btn btn-sm btn-info mr-1 btn-show-user" title="Xem"
 							data-id="{{ user.id }}" data-name="{{ user.name }}" data-full-name="{{ user.full_name }}"
 							data-email="{{ user.email }}" data-role="{{ user.role }}" data-avatar="{{ user.avatar }}">
 								Xem
 							</a>
-							<a href="" class="btn btn-sm btn-warning mr-1 btn-edit-user" title="Sửa" 
+							<a href="#" class="btn btn-sm btn-warning mr-1 btn-edit-user" title="Sửa" 
 							data-id="{{ user.id }}" data-name="{{ user.name }}" data-full-name="{{ user.full_name }}"
 							data-email="{{ user.email }}" data-role="{{ user.role }}">
 								Sửa
