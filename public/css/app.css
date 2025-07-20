@@ -53,3 +53,9 @@
 .nav-item.active .nav-link {
   color: #fff;
 }
+
+.avatar-preview {
+  width: 120px;
+  height: 120px;
+  background-color: #dfdfdf;
+}

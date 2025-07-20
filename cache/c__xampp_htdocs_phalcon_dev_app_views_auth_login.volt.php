@@ -6,7 +6,7 @@
 		<meta
 		name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Đăng nhập</title>
+		<title>Phalcon PHP Framework</title>
 		<link rel="stylesheet" href="<?php echo $this->url->get('css/app.css')?>"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
@@ -20,8 +20,25 @@
 						tài khoản
 					</div>
 					<div class="login-box-body border rounded">
-						{% include 'components/messages.volt' %}
-						<form method="post" action="{{ url('auth/login') }}">
+						<?php $errors = $this->flashSession->getMessages('error'); ?>
+<?php if (!empty($errors)) { ?>
+    <div class="alert alert-danger">
+        <ul>
+        <?php foreach ($errors as $message) { ?>
+            <li><?= $message ?></li>
+        <?php } ?>
+        </ul>
+    </div>
+<?php } ?>
+<?php $success = $this->flashSession->getMessages('success'); ?>
+<?php if (!empty($success)) { ?>
+    <div class="alert alert-success">
+        <?php foreach ($success as $message) { ?>
+            <p><?= $message ?></p>
+        <?php } ?>
+    </div>
+<?php } ?>
+						<form method="post" action="<?= $this->url->get('auth/login') ?>">
 							<div class="form-group has-feedback">
 								<input class="form-control" type="email" name="email" placeholder="Email">
 								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -37,7 +54,7 @@
 							</div>
 							<br>
 							<div>
-								<a href="{{ url('auth/register') }}" class="text-center">Chưa có tài khoản? Đăng ký</a>
+								<a href="<?= $this->url->get('auth/register') ?>" class="text-center">Chưa có tài khoản? Đăng ký</a>
 								|
 								<a href="" class="text-center">Quên mật khẩu?</a>
 							</div>
