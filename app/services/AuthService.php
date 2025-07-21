@@ -75,7 +75,7 @@ class AuthService extends Injectable {
     public function resetPassword($token, $password) {
         $now = date('Y-m-d H:i:s');
         $user = Users::findFirst([
-            'conditions' => 'reset_token = ?1 AND reset_token_expire > :now:',
+            'conditions' => 'reset_token = :token: AND reset_token_expire > :now:',
             'bind' => [
                 'token' => $token,
                 'now' => $now
@@ -84,7 +84,6 @@ class AuthService extends Injectable {
         if (!$user) {
             $this->flashSession->error('Token không hợp lệ hoặc hết hạn');
         }
-        $this->helpers->dd($now);
         if ($password) {
             $user->password = $this->security->hash($password);
             $user->reset_token = null;

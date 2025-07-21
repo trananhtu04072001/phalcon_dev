@@ -19,8 +19,25 @@
 						<b>Đặt lại mật khẩu</b>
 					</div>
 					<div class="login-box-body border rounded">
-						{% include 'components/messages.volt' %}
-                        <form method="post" action="{{ url('auth/resetPassword/' ~ token) }}">
+						<?php $errors = $this->flashSession->getMessages('error'); ?>
+<?php if (!empty($errors)) { ?>
+    <div class="alert alert-danger">
+        <ul>
+        <?php foreach ($errors as $message) { ?>
+            <li><?= $message ?></li>
+        <?php } ?>
+        </ul>
+    </div>
+<?php } ?>
+<?php $success = $this->flashSession->getMessages('success'); ?>
+<?php if (!empty($success)) { ?>
+    <div class="alert alert-success">
+        <?php foreach ($success as $message) { ?>
+            <p><?= $message ?></p>
+        <?php } ?>
+    </div>
+<?php } ?>
+                        <form method="post" action="<?= $this->url->get('auth/resetPassword/' . $token) ?>">
                             <div class="form-group has-feedback">
                                 <input class="form-control" type="password" name="password" placeholder="Mật khẩu mới" required>
                             </div>
