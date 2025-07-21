@@ -32,13 +32,6 @@ class RegisterValidation extends Validation
             'model'   => new Users(),
             'message' => 'Email đã được đăng kí.',
         ]));
-        // $this->add('phone', new PresenceOf([
-        //     'message'      => 'Yêu cầu nhập số điện thoại.',
-        // ]));
-        // $this->add('phone', new StringLength([
-        //     'min' => 10,
-        //     'message' => 'Yêu cầu nhập tối thiểu 10 số.',
-        // ]));
         $this->add('password', new PresenceOf([
             'message' => 'Mật khẩu không được để trống.',
         ]));

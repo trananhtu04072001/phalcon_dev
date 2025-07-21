@@ -8,9 +8,20 @@ use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\StringLength;
 use Phalcon\Validation\Validator\Regex;
 use Phalcon\Validation\Validator\Confirmation;
+use Phalcon\Validation\Validator\Uniqueness;
+use App\Models\Users;
 
 class UpdateUserValidation extends Validation
 {
+    protected $currentUserId;
+
+    public function __construct($currentUserId)
+    {
+        $this->currentUserId = $currentUserId;
+
+        parent::__construct();
+    }
+
     public function initialize()
     {
         $this->add('name', new PresenceOf([
@@ -26,13 +37,13 @@ class UpdateUserValidation extends Validation
         $this->add('email', new Email([
             'message' => 'Email không đúng định dạng.',
         ]));
-        // $this->add('phone', new PresenceOf([
-        //     'message'      => 'Yêu cầu nhập số điện thoại.',
-        // ]));
-        // $this->add('phone', new StringLength([
-        //     'min' => 10,
-        //     'message' => 'Yêu cầu nhập tối thiểu 10 số.',
-        // ]));
+        $this->add('email', new Uniqueness([
+            'model'   => new Users(),
+            'message' => 'Email đã được đăng kí.',
+            'except'  => [
+                'id' => $this->currentUserId,
+            ],
+        ]));
         $this->add('role', new PresenceOf([
             'message' => 'Quyền không được để trống.',
         ]));

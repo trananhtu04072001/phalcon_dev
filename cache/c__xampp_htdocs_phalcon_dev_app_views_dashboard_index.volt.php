@@ -180,7 +180,6 @@
             <input type="email" class="form-control" id="edit_email" name="email">
             <div class="text-danger error-msg" data-name="email"></div>
           </div>
-          
           <div class="form-group">
             <label for="avatar">Ảnh</label>
             <input type="file" class="form-control" id="avatar" name="avatar">
@@ -193,6 +192,12 @@
               <option value="admin">Admin</option>
             </select>
             <div class="text-danger error-msg" data-name="role"></div>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="auto_reset_password" name="auto_reset_password">
+            <label class="form-check-label" for="auto_reset_password">
+              Đổi mật khẩu tự động.
+            </label>
           </div>
         </div>
         <div class="modal-footer">

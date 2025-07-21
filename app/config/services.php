@@ -17,6 +17,7 @@ use App\Services\UserService;
 use App\Helpers\Helper;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use App\Middleware\AuthMiddleware;
 
 /**
  * Shared configuration service
@@ -184,3 +185,17 @@ $di->setShared('mailer', function () {
 
     return $mail;
 });
+
+$di->set(
+    'dispatcher',
+    function () use ($di) {
+        $eventsManager = $di->getShared('eventsManager');
+
+        // Attach the middleware plugin
+        $eventsManager->attach('dispatch:beforeExecuteRoute', new AuthMiddleware);
+
+        $dispatcher = new \Phalcon\Mvc\Dispatcher();
+        $dispatcher->setEventsManager($eventsManager);
+        return $dispatcher;
+    }
+);

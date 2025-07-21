@@ -17,6 +17,7 @@ $loader->registerNamespaces([
     'App\Validations' => 'app/validations/',
     'App\Helpers' => 'app/helpers/',
     'App\Enums' => 'app/enums/',
-    'App\Jobs' => 'app\jobs'
+    'App\Jobs' => 'app\jobs',
+    'App\Middleware' => 'app\middleware'
 ]);
 $loader->register();
