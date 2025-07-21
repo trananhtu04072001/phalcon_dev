@@ -7,6 +7,7 @@ use App\Models\Users;
 use App\Validations\CreateUserValidation;
 use App\Validations\UpdateUserValidation;
 use App\Validations\UpdateProfileValidation;
+use App\Models\QueueJobs;
 
 class UserService extends Injectable {
     public function create($data, $reqFile) {
@@ -29,11 +30,17 @@ class UserService extends Injectable {
             $user->full_name = $data['full_name'] ?? '';
             $user->email = $data['email'] ?? '';    
             $user->phone = $data['phone'] ?? '';
-            $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar') ?? '/images/default-avatar.png';
+            $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar') ?? '/default/default-avatar.png';
             $passwordPlain = bin2hex(random_bytes(4));
             $user->password = $this->security->hash($passwordPlain) ?? '';
             $user->role = $data['role'] ?? UserRole::USER;
             if ($user->save()) {
+                // Push job vào queue
+                $job = new QueueJobs();
+                $job->type = 'create_new_user';
+                $job->payload = json_encode(['email' => $user->email, 'password' => $passwordPlain]);
+                $job->status = 'pending';
+                $job->save();
                 return [
                     'success' => true,
                     'message' => 'Tạo user thành công!'
@@ -43,7 +50,7 @@ class UserService extends Injectable {
     }
 
     public function update($id, $data, $reqFile) {
-        $validator = new UpdateUserValidation();
+        $validator = new UpdateUserValidation($id);
         $errors = $validator->validate($data);
         if (count($errors)) {
             foreach ($errors as $msg) {
@@ -51,23 +58,25 @@ class UserService extends Injectable {
             }
             return ['success' => false, 'errors' => $errors];
         }
+        $user = Users::findFirstById($id ?? null);
         if (!empty($data)) {
-            $user = Users::findFirstById($id ?? null);
             $user->name = $data['name'] ?? '';
             $user->full_name = $data['full_name'] ?? '';
             $user->email = $data['email'] ?? '';
-            if (!empty($reqFile)) {
-                $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar');
-            } 
-            $passwordPlain = bin2hex(random_bytes(4));
-            $user->password = $this->security->hash($passwordPlain) ?? '';
             $user->role = $data['role'] ?? UserRole::USER;
-            if ($user->save()) {
-                return [
-                    'success' => true,
-                    'message' => 'Cập nhật thành công!'
-                ];
-            }
+        }
+        if ($data['auto_reset_password']) {
+            $passwordPlain = bin2hex(random_bytes(4));
+            $user->password = $this->security->hash($passwordPlain);
+        }
+        if (!empty($reqFile) && isset($reqFile[0]) && $reqFile[0]->getError() === UPLOAD_ERR_OK) {
+            $user->avatar = $this->helpers->upload($reqFile[0], 'avatar') ?? '/default/default-avatar.png';
+        }
+        if ($user->save()) {
+            return [
+                'success' => true,
+                'message' => 'Cập nhật thành công!'
+            ];
         }
     }
 
@@ -81,7 +90,6 @@ class UserService extends Injectable {
             }
             return ['success' => false, 'errors' => $errors];
         }
-        // $this->helpers->dd($data);
         if (!empty($data)) {
             $user = Users::findFirstById($id ?? null);
             $user->name = $data['name'] ?? '';

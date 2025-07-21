@@ -24,5 +24,9 @@ class UpdateProfileValidation extends Validation
         $this->add('email', new Email([
             'message' => 'Email không đúng định dạng.',
         ]));
+        $this->add('email', new Uniqueness([
+            'model'   => new Users(),
+            'message' => 'Email đã được đăng kí.',
+        ]));
     }
 }

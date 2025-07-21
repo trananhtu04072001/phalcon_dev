@@ -19,7 +19,7 @@ class UserController extends ControllerBase
             $reqFile = $this->request->getUploadedFiles();
             $result = $this->userService->update($id, $this->request->getPost(), $reqFile);
             return $this->response
-                ->setStatusCode($result['success'] ? 201 : 422)
+                ->setStatusCode($result['success'] ? 200 : 422)
                 ->setJsonContent($result);
         }
     }

@@ -95,4 +95,17 @@ $(document).ready(function () {
     $('#detail_avatar').attr('src', $(this).data('avatar'));
     $("#userDetailModal").modal("show");
   });
+
+  $('#avatar').on('change', function (e) {
+      const file = e.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+              $('#avatar_img').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(file);
+      } else {
+          alert("Vui lòng chọn tệp hình ảnh hợp lệ.");
+      }
+  });
 });

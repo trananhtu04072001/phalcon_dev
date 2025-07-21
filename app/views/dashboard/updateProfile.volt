@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <div class="avatar-preview" id="avatar_preview">
-                        <img src="{{ userLogged['avatar'] }}"></img>
+                        <img id="avatar_img" src="{{ userLogged['avatar'] }}" width="120" height="120"></img>
                     </div>
                     <label for="avatar">Ảnh</label>
                     <input type="file" class="form-control" id="avatar" name="avatar">
