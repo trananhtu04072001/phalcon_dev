@@ -7,7 +7,8 @@ class DashboardController extends ControllerBase
     public function indexAction()
     {
         $userLogged = $this->userLogged;
-        $users = Users::find("role = 'user'");
+        $keyword = $this->request->get('keyword');
+        $users = $this->userService->filterSearch($keyword);
         $this->view->setVars(['userLogged' => $userLogged, 'users' => $users]);  
     }
 
