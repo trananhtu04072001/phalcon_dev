@@ -33,6 +33,7 @@ class AuthController extends ControllerBase
         if ($password) {
             $result = $this->authService->resetPassword($token, $password);
         }
+        $this->view->setVar('token', $token);  
     }
 }
 

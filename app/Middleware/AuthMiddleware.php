@@ -10,10 +10,10 @@ use App\Enums\UserRole;
 class AuthMiddleware extends Plugin
 {
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher) {
-        $controller = $dispatcher->getControllerName();
-        $action     = $dispatcher->getActionName();
+        $controller = strtolower($dispatcher->getControllerName());
+        $action     = strtolower($dispatcher->getActionName());
         $publicRoutes = [
-            'auth' => ['login', 'register', 'resetpassword'],
+            'auth' => ['login', 'register', 'resetpassword', 'forgotPassword'],
         ];
         if (isset($publicRoutes[$controller]) && in_array($action, $publicRoutes[$controller])) {
             return true;
