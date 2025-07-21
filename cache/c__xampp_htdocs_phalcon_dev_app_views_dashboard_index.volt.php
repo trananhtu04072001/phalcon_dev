@@ -52,6 +52,13 @@
 		<button type="button" class="btn btn-primary px-4" data-toggle="modal" data-target="#createUserModal">Thêm</button>
 	</div>
 	<h1 class="h3 mb-3">Trang chủ</h1>
+	<form method="get" action="/dashboard" class="text-end d-flex align-items-center justify-content-end">
+		<div class="d-inline-flex align-items-center" style="gap: 5px;">
+			<input type="text" class="form-control" name="keyword" placeholder="Tìm kiếm..."
+			value="<?= $this->escaper->escapeHtml($this->request->get('keyword')) ?>" />
+			<button class="btn btn-primary">Tìm kiếm</button>
+		</div>
+	</form>
 	<h2 class="h5 mb-4">Danh sách người dùng</h2>
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered">

@@ -100,4 +100,17 @@ class UserService extends Injectable {
             }
         }
     }
+
+    public function filterSearch($keyword) {
+        $conditions = "role = 'user'";
+        $params = [];
+        if (!empty($keyword)) {
+            $conditions .= " AND (name LIKE :keyword: OR full_name LIKE :keyword: OR email LIKE :keyword:)";
+            $params['keyword'] = '%' . $keyword . '%';
+        }
+        return $users = Users::find([
+            'conditions' => $conditions,
+            'bind'       => $params,
+        ]);
+    }
 }
