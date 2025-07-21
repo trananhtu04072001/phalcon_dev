@@ -6,7 +6,7 @@
 		<meta
 		name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Đăng nhập</title>
+		<title>Quên mật khẩu</title>
 		<link rel="stylesheet" href="<?php echo $this->url->get('css/app.css')?>"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
@@ -16,8 +16,7 @@
 			<div class="login-page">
 				<div class="register-box">
 					<div class="register-logo">
-						<b>Đăng nhập</b>
-						tài khoản
+						<b>Quên mật khẩu</b>
 					</div>
 					<div class="login-box-body border rounded">
 						<?php $errors = $this->flashSession->getMessages('error'); ?>
@@ -38,27 +37,15 @@
         <?php } ?>
     </div>
 <?php } ?>
-						<form method="post" action="<?= $this->url->get('auth/login') ?>">
+                        <form method="post" action="<?= $this->url->get('auth/forgotPassword') ?>">
 							<div class="form-group has-feedback">
 								<input class="form-control" type="email" name="email" placeholder="Email">
 								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 							</div>
-							<div class="form-group has-feedback">
-								<input class="form-control" type="password" name="password" placeholder="Mật khẩu">
-								<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+							<div class="col-12">
+								<button class="btn btn-primary btn-block btn-flat" type="submit">Gửi liên kết đặt lại mật khẩu</button>
 							</div>
-							<div class="row m-auto">
-								<div class="col-xs-12">
-									<button class="btn btn-primary btn-block btn-flat" type="submit">Đăng nhập</button>
-								</div>
-							</div>
-							<br>
-							<div>
-								<a href="<?= $this->url->get('auth/register') ?>" class="text-center">Chưa có tài khoản? Đăng ký</a>
-								|
-								<a href="<?= $this->url->get('auth/forgotPassword') ?>" class="text-center">Quên mật khẩu?</a>
-							</div>
-						</form>
+                        </form>
 					</div>
 				</div>
 			</div>

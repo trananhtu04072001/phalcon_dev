@@ -47,7 +47,7 @@
 								<input class="form-control" type="password" name="confirm_password" placeholder="Nhập lại mật khẩu">
 								<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
 							</div>
-							<div class="row">
+							<div class="row m-auto">
 								<div class="col-xs-12">
 									<button class="btn btn-primary btn-block btn-flat" type="submit">Đăng ký</button>
 								</div>
