@@ -1,4 +1,8 @@
 <?php
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', dirname(dirname(__DIR__)));
+}
+require_once BASE_PATH . '/vendor/autoload.php';
 
 use Phalcon\Mvc\Router;
 use Phalcon\Mvc\View;
@@ -11,6 +15,8 @@ use Phalcon\Flash\Direct as Flash;
 use App\Services\AuthService;
 use App\Services\UserService;
 use App\Helpers\Helper;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 /**
  * Shared configuration service
@@ -158,4 +164,23 @@ $di->setShared('helpers', function () {
 $di->setShared('userLogged', function () use ($di) {
     $session = $di->getShared('session');
     return $session->get('user');
+});
+
+$di->setShared('mailer', function () {
+    $mail = new PHPMailer(true);
+    // Set charset and encoding
+    $mail->CharSet = 'UTF-8';
+    $mail->Encoding = 'base64';
+    $mail->isSMTP();
+    $mail->Host       = $_ENV['MAIL_HOST'];
+    $mail->SMTPAuth   = true;
+    $mail->Username   = $_ENV['MAIL_USERNAME'];
+    $mail->Password   = $_ENV['MAIL_PASSWORD'];
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = $_ENV['MAIL_PORT'];
+
+    $mail->setFrom($_ENV['MAIL_FROM_ADDRESS'], $_ENV['MAIL_FROM_NAME']);
+    $mail->isHTML(true);
+
+    return $mail;
 });

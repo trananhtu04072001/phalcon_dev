@@ -25,7 +25,9 @@
         "php": ">=5.5",
         "ext-phalcon": "~3.3",
         "psy/psysh": "~0.9",
-        "nikic/php-parser": "^3.1"
+        "nikic/php-parser": "^3.1",
+        "phpmailer/phpmailer": "^6.10",
+        "vlucas/phpdotenv": "^5.3"
     },
     "require-dev": {
         "kherge/box": "^2.7",

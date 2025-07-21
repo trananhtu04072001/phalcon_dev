@@ -20,5 +20,19 @@ class AuthController extends ControllerBase
         $this->flashSession->success('Bạn đã đăng xuất.');
         return $this->response->redirect('auth/login');
     }
+
+    public function forgotPasswordAction() {
+        $email = $this->request->getPost('email');
+        if ($email) {
+            $result = $this->authService->forgotPassword($email);
+        }
+    }
+
+    public function resetPasswordAction($token) {
+        $password = $this->request->getPost('password');
+        if ($password) {
+            $result = $this->authService->resetPassword($token, $password);
+        }
+    }
 }
 

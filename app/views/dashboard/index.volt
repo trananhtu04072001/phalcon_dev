@@ -46,7 +46,7 @@
 					</tr>
 				{% else %}
 					<tr>
-						<td colspan="6">Không có người dùng nào.</td>
+						<td class="text-center" colspan="6">Không có người dùng nào.</td>
 					</tr>
 				{% endfor %}
 			</tbody>

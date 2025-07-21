@@ -6,20 +6,21 @@
 		<meta
 		name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Đăng nhập</title>
+		<title>Đăng kí tài khoản</title>
 		<link rel="stylesheet" href="<?php echo $this->url->get('css/app.css')?>"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
 	</head>
 	<body>
 		<div class="container">
-			<div class="login-page">
+			<div class="register-page">
 				<div class="register-box">
 					<div class="register-logo">
-						<b>Đăng nhập</b>
+						<b>Đăng ký</b>
 						tài khoản
 					</div>
-					<div class="login-box-body border rounded">
+					<div class="register-box-body border rounded">
+						<p class="register-box-msg">Điền thông tin để tạo tài khoản mới</p>
 						<?php $errors = $this->flashSession->getMessages('error'); ?>
 <?php if (!empty($errors)) { ?>
     <div class="alert alert-danger">
@@ -38,27 +39,39 @@
         <?php } ?>
     </div>
 <?php } ?>
-						<form method="post" action="<?= $this->url->get('auth/login') ?>">
+						<form method="post" action="<?= $this->url->get('auth/register') ?>">
+							<div class="form-group has-feedback">
+								<input class="form-control" type="text" name="name" placeholder="Tên đăng nhập">
+								<span class="glyphicon glyphicon-user form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
+								<input class="form-control" type="text" name="full_name" placeholder="Tên đầy đủ">
+								<span class="glyphicon glyphicon-font form-control-feedback"></span>
+							</div>
 							<div class="form-group has-feedback">
 								<input class="form-control" type="email" name="email" placeholder="Email">
 								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 							</div>
 							<div class="form-group has-feedback">
+								<input class="form-control" type="text" name="phone" placeholder="Số điện thoại">
+								<span class="glyphicon glyphicon-earphone form-control-feedback"></span>
+							</div>
+							<div class="form-group has-feedback">
 								<input class="form-control" type="password" name="password" placeholder="Mật khẩu">
 								<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 							</div>
+							<div class="form-group has-feedback">
+								<input class="form-control" type="password" name="confirm_password" placeholder="Nhập lại mật khẩu">
+								<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+							</div>
 							<div class="row m-auto">
 								<div class="col-xs-12">
-									<button class="btn btn-primary btn-block btn-flat" type="submit">Đăng nhập</button>
+									<button class="btn btn-primary btn-block btn-flat" type="submit">Đăng ký</button>
 								</div>
 							</div>
-							<br>
-							<div>
-								<a href="<?= $this->url->get('auth/register') ?>" class="text-center">Chưa có tài khoản? Đăng ký</a>
-								|
-								<a href="<?= $this->url->get('auth/forgotPassword') ?>" class="text-center">Quên mật khẩu?</a>
-							</div>
 						</form>
+						<br>
+						<a href="<?= $this->url->get('auth/login') ?>" class="text-center">Đã có tài khoản? Đăng nhập</a>
 					</div>
 				</div>
 			</div>
