@@ -68,7 +68,7 @@ class AuthService extends Injectable {
         }
     }
 
-    public function resetPassword($token, $password) {
+    public function resetPassword($token, $data) {
         $validator = new ResetPasswordValidation();
         $errors = $validator->validate($data);
         if (count($errors)) {
@@ -88,8 +88,8 @@ class AuthService extends Injectable {
         if (!$user) {
             $this->flashSession->error('Token không hợp lệ hoặc hết hạn');
         }
-        if ($password) {
-            $user->password = $this->security->hash($password);
+        if ($data['password']) {
+            $user->password = $this->security->hash($data['password']);
             $user->reset_token = null;
             $user->reset_token_expire = null;
             $user->save();

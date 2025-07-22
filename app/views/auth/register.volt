@@ -13,6 +13,7 @@
 	</head>
 	<body>
 		<div class="container">
+			{% include 'components/messages.volt' %}
 			<div class="register-page">
 				<div class="register-box">
 					<div class="register-logo">
@@ -21,7 +22,6 @@
 					</div>
 					<div class="register-box-body border rounded">
 						<p class="register-box-msg">Điền thông tin để tạo tài khoản mới</p>
-						{% include 'components/messages.volt' %}
 						<form method="post" action="{{ url('auth/register') }}">
 							<div class="form-group has-feedback">
 								<input class="form-control" type="text" name="name" placeholder="Tên đăng nhập">
@@ -59,5 +59,6 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<script src="<?php echo $this->url->get('js/app.js')?>" crossorigin="anonymous"></script>
 	</body>
 </html>
