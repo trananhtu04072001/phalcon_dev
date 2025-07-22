@@ -22,9 +22,12 @@
 						{% include 'components/messages.volt' %}
                         <form method="post" action="{{ url('auth/resetPassword/' ~ token) }}">
                             <div class="form-group has-feedback">
-                                <input class="form-control" type="password" name="password" placeholder="Mật khẩu mới" required>
+                                <input class="form-control" type="password" name="password" placeholder="Mật khẩu mới">
                             </div>
-                            <div class="col-12">
+							<div class="form-group has-feedback">
+                                <input class="form-control" type="password" name="confirm_password" placeholder="Nhập lại mật khẩu">
+                            </div>
+							<div class="d-flex justify-content-center align-items-center">	
 								<button class="btn btn-primary btn-block btn-flat" type="submit">Đặt lại mật khẩu</button>
 							</div>
                         </form>

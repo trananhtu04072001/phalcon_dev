@@ -7,7 +7,6 @@ use App\Models\Users;
 use App\Validations\CreateUserValidation;
 use App\Validations\UpdateUserValidation;
 use App\Validations\UpdateProfileValidation;
-use App\Models\QueueJobs;
 
 class UserService extends Injectable {
     public function create($data, $reqFile) {
@@ -36,11 +35,7 @@ class UserService extends Injectable {
             $user->role = $data['role'] ?? UserRole::USER;
             if ($user->save()) {
                 // Push job vào queue
-                $job = new QueueJobs();
-                $job->type = 'create_new_user';
-                $job->payload = json_encode(['email' => $user->email, 'password' => $passwordPlain]);
-                $job->status = 'pending';
-                $job->save();
+                $this->helpers->queueJobs('create_new_user', ['email' => $user->email, 'password' => $passwordPlain]);
                 return [
                     'success' => true,
                     'message' => 'Tạo user thành công!'
@@ -68,6 +63,8 @@ class UserService extends Injectable {
         if ($data['auto_reset_password']) {
             $passwordPlain = bin2hex(random_bytes(4));
             $user->password = $this->security->hash($passwordPlain);
+            // Push job vào queue
+            $this->helpers->queueJobs('auto_reset_password', ['email' => $user->email, 'password' => $passwordPlain]);
         }
         if (!empty($reqFile) && isset($reqFile[0]) && $reqFile[0]->getError() === UPLOAD_ERR_OK) {
             $user->avatar = $this->helpers->upload($reqFile[0], 'avatar') ?? '/default/default-avatar.png';
@@ -81,7 +78,7 @@ class UserService extends Injectable {
     }
 
     public function updateProfile($id, $data, $reqFile) {
-        $validator = new UpdateProfileValidation();
+        $validator = new UpdateProfileValidation($id);
         $messages  = $validator->validate($data);
         if (count($messages)) {
             $errors = [];
@@ -90,22 +87,22 @@ class UserService extends Injectable {
             }
             return ['success' => false, 'errors' => $errors];
         }
-        if (!empty($data)) {
             $user = Users::findFirstById($id ?? null);
+        if (!empty($data)) {
             $user->name = $data['name'] ?? '';
             $user->full_name = $data['full_name'] ?? '';
             $user->email = $data['email'] ?? '';
-            if (!empty($reqFile)) {
-                $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar');
-            } 
-            if ($data['password']) {
-                $user->password = $this->security->hash($data['password']) ?? '';
-            }
-            if ($user->save()) {
-                $this->session->set('user', $user->toArray());
-                $this->flashSession->success('Cập nhật thành công!');
-                return $this->response->redirect('dashboard/updateProfile');
-            }
+        }
+        if (!empty($reqFile) && isset($reqFile[0]) && $reqFile[0]->getError() === UPLOAD_ERR_OK) {
+            $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar');
+        } 
+        if ($data['password']) {
+            $user->password = $this->security->hash($data['password']) ?? '';
+        }
+        if ($user->save()) {
+            $this->session->set('user', $user->toArray());
+            $this->flashSession->success('Cập nhật thành công!');
+            return $this->response->redirect('dashboard/updateProfile');
         }
     }
 
