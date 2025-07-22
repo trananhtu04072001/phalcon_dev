@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Phalcon\Http\Request\File;
+use App\Models\QueueJobs;
 
 class Helper {
     public static function dd($data) {
@@ -33,5 +34,13 @@ class Helper {
             return $folder . '/' . $filename;
         }
         return null;
+    }
+
+    public function queueJobs(string $type, array $payload) {
+        $job = new QueueJobs();
+        $job->type = $type;
+        $job->payload = json_encode($payload);
+        $job->status = 'pending';
+        $job->save();
     }
 }

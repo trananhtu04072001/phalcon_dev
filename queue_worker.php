@@ -18,6 +18,7 @@ require APP_PATH . '/config/services.php';
 
 use App\Jobs\SendResetPasswordJob;
 use App\Jobs\CreateNewUserJob;
+use App\Jobs\AutoResetPasswordJob;
 use App\Models\QueueJobs;
 
 // Vòng lặp xử lý queue
@@ -44,7 +45,9 @@ while (true) {
         if ($job->type === 'create_new_user') {
             (new CreateNewUserJob())->handle($payload);
         }
-
+        if ($job->type === 'auto_reset_password') {
+            (new AutoResetPasswordJob())->handle($payload);
+        }
         $job->status = 'done';
         $job->save();
     } catch (Exception $e) {

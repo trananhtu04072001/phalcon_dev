@@ -6,8 +6,8 @@ use Phalcon\Di\Injectable;
 use App\Models\Users;
 use App\Validations\RegisterValidation;
 use App\Validations\LoginValidation;
+use App\Validations\ResetPasswordValidation;
 use App\Enums\UserRole;
-use App\Models\QueueJobs;
 
 class AuthService extends Injectable {
     public function register($data) {
@@ -61,11 +61,7 @@ class AuthService extends Injectable {
                 $user->save();
                 $resetLink = $this->url->get($_ENV['DOMAIN']."auth/resetPassword/$token", true);
                 // Push job vào queue
-                $job = new QueueJobs();
-                $job->type = 'send_reset_password';
-                $job->payload = json_encode(['email' => $email, 'reset_link' => $resetLink]);
-                $job->status = 'pending';
-                $job->save();
+                $this->helpers->queueJobs('send_reset_password', ['email' => $email, 'reset_link' => $resetLink]);
             } else {
                 $this->flashSession->error('Email không tồn tại.');
             }
@@ -73,6 +69,14 @@ class AuthService extends Injectable {
     }
 
     public function resetPassword($token, $password) {
+        $validator = new ResetPasswordValidation();
+        $errors = $validator->validate($data);
+        if (count($errors)) {
+            foreach ($errors as $msg) {
+                $this->flashSession->error($msg);
+            }
+            return ['success' => false, 'errors' => $errors];
+        }
         $now = date('Y-m-d H:i:s');
         $user = Users::findFirst([
             'conditions' => 'reset_token = :token: AND reset_token_expire > :now:',

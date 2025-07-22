@@ -35,10 +35,6 @@
 								<input class="form-control" type="email" name="email" placeholder="Email">
 								<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 							</div>
-							{# <div class="form-group has-feedback">
-								<input class="form-control" type="text" name="phone" placeholder="Số điện thoại">
-								<span class="glyphicon glyphicon-earphone form-control-feedback"></span>
-							</div> #}
 							<div class="form-group has-feedback">
 								<input class="form-control" type="password" name="password" placeholder="Mật khẩu">
 								<span class="glyphicon glyphicon-lock form-control-feedback"></span>
