@@ -13,16 +13,23 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="login-page">
-				<div class="register-box">
-					<div class="register-logo">
-						<b>Đăng nhập</b>
-						tài khoản
-					</div>
-					<div class="login-box-body border rounded">
-						<?php $errors = $this->flashSession->getMessages('error'); ?>
+			<style>
+    .alert-success-custom,
+    .alert-danger-custom {
+        position: absolute !important;
+        right: 20px;
+        z-index: 1000;
+        transition: opacity 0.5s ease;
+    }
+    .alert ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+</style>
+<?php $errors = $this->flashSession->getMessages('error'); ?>
 <?php if (!empty($errors)) { ?>
-    <div class="alert alert-danger">
+    <div class="alert alert-danger alert-danger-custom">
         <ul>
         <?php foreach ($errors as $message) { ?>
             <li><?= $message ?></li>
@@ -32,12 +39,19 @@
 <?php } ?>
 <?php $success = $this->flashSession->getMessages('success'); ?>
 <?php if (!empty($success)) { ?>
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-success-custom">
         <?php foreach ($success as $message) { ?>
             <p><?= $message ?></p>
         <?php } ?>
     </div>
 <?php } ?>
+			<div class="login-page">
+				<div class="register-box">
+					<div class="register-logo">
+						<b>Đăng nhập</b>
+						tài khoản
+					</div>
+					<div class="login-box-body border rounded">
 						<form method="post" action="<?= $this->url->get('auth/login') ?>">
 							<div class="form-group has-feedback">
 								<input class="form-control" type="email" name="email" placeholder="Email">
@@ -67,5 +81,6 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<script src="<?php echo $this->url->get('js/app.js')?>" crossorigin="anonymous"></script>
 	</body>
 </html>

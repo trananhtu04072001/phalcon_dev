@@ -108,4 +108,10 @@ $(document).ready(function () {
           alert("Vui lòng chọn tệp hình ảnh hợp lệ.");
       }
   });
+
+  setTimeout(function () {
+    $('.alert-success-custom, .alert-danger-custom').fadeOut(500, function () {
+        $(this).remove();
+    });
+  }, 3000);
 });

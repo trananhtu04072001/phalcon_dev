@@ -33,7 +33,6 @@ class UpdateUserValidation extends Validation
         $this->add('email', new PresenceOf([
             'message' => 'Email không được để trống.',
         ]));
-
         $this->add('email', new Email([
             'message' => 'Email không đúng định dạng.',
         ]));

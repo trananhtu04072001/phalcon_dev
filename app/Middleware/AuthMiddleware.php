@@ -13,7 +13,7 @@ class AuthMiddleware extends Plugin
         $controller = strtolower($dispatcher->getControllerName());
         $action     = strtolower($dispatcher->getActionName());
         $publicRoutes = [
-            'auth' => ['login', 'register', 'resetpassword', 'forgotPassword'],
+            'auth' => ['login', 'register', 'resetpassword', 'forgotpassword'],
         ];
         if (isset($publicRoutes[$controller]) && in_array($action, $publicRoutes[$controller])) {
             return true;

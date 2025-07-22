@@ -29,9 +29,9 @@ class AuthController extends ControllerBase
     }
 
     public function resetPasswordAction($token) {
-        $password = $this->request->getPost('password');
-        if ($password) {
-            $result = $this->authService->resetPassword($token, $password);
+        $data = $this->request->getPost();
+        if ($data) {
+            $result = $this->authService->resetPassword($token, $data);
         }
         $this->view->setVar('token', $token);  
     }

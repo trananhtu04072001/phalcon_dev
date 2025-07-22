@@ -3,7 +3,6 @@
 
 {% block content %} 
 <div>
-    {% include 'components/messages.volt' %}
     <form method="post" action="{{ url('dashboard/updateProfile') }}" enctype="multipart/form-data">
         <h5 class="mb-4">Cập nhật người dùng</h5>
         <div class="row">
@@ -23,7 +22,7 @@
 
                 <div class="form-group">
                     <div class="avatar-preview" id="avatar_preview">
-                        <img id="avatar_img" src="{{ userLogged['avatar'] }}" width="120" height="120"></img>
+                        <img id="avatar_img" src="/{{ userLogged['avatar'] }}" width="120" height="120"></img>
                     </div>
                     <label for="avatar">Ảnh</label>
                     <input type="file" class="form-control" id="avatar" name="avatar">

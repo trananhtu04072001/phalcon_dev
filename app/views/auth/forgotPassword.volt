@@ -13,13 +13,13 @@
 	</head>
 	<body>
 		<div class="container">
+			{% include 'components/messages.volt' %}
 			<div class="login-page">
 				<div class="register-box">
 					<div class="register-logo">
 						<b>Quên mật khẩu</b>
 					</div>
 					<div class="login-box-body border rounded">
-						{% include 'components/messages.volt' %}
                         <form method="post" action="{{ url('auth/forgotPassword') }}">
 							<div class="form-group has-feedback">
 								<input class="form-control" type="email" name="email" placeholder="Email">
@@ -37,5 +37,6 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<script src="<?php echo $this->url->get('js/app.js')?>" crossorigin="anonymous"></script>
 	</body>
 </html>

@@ -19,6 +19,7 @@
             {% include 'partials/nav.volt' %}
             <!-- Main Content -->
             <main class="col-12 col-sm-9 col-md-10 px-4 py-4">
+                {% include 'components/messages.volt' %}
                 {% block content %}{% endblock %}
             </main>
         </div>
