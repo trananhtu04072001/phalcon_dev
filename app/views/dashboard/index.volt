@@ -30,7 +30,7 @@
 					<tr>
 						<td>{{ user.id }}</td>
 						<td class="text-center">
-							<img src="{{ user.avatar }}" alt="User" width="60" height="60" class="rounded">
+							<img src="/{{ user.avatar }}" alt="User" width="60" height="60" class="rounded">
 						</td>
 						<td>{{ user.name }}</td>
 						<td>{{ user.full_name }}</td>
@@ -46,9 +46,15 @@
 							data-email="{{ user.email }}" data-role="{{ user.role }}">
 								Sửa
 							</a>
-							{# <a href="#" class="btn btn-sm btn-danger" title="Xóa">
-								Xóa
-							</a> #}
+							{% if (user.deleted_at)  %}
+								<a href="{{ url('user/restore/' ~ user.id) }}" class="btn btn-sm btn-warning" title="Xóa">
+									Khôi phục
+								</a>
+							{% else %}
+								<a href="{{ url('user/delete/' ~ user.id) }}" class="btn btn-sm btn-danger" title="Xóa">
+									Xóa
+								</a>
+							{% endif %}
 						</td>
 					</tr>
 				{% else %}

@@ -24,7 +24,7 @@ class AuthService extends Injectable {
         $user->full_name = $data['full_name'] ?? '';
         $user->email = $data['email'] ?? '';    
         $user->phone = $data['phone'] ?? '';
-        $user->avatar = '/default/default-avatar.png';
+        $user->avatar = 'default/default-avatar.png';
         $user->password = $this->security->hash($data['password']) ?? '';
         $user->role = UserRole::ADMIN;
         if ($user->save()) {

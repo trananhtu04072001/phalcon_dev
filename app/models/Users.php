@@ -74,6 +74,12 @@ class Users extends \Phalcon\Mvc\Model
     public $updated_at;
 
     /**
+     *
+     * @var string
+     */
+    public $deleted_at;
+
+    /**
      * Validations and business logic
      *
      * @return boolean
