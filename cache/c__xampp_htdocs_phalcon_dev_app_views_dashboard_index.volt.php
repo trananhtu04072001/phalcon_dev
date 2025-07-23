@@ -105,9 +105,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php $v35149773421iterated = false; ?><?php foreach ($users as $user) { ?><?php $v35149773421iterated = true; ?>
+				<?php $v35149773421iterated = false; ?><?php $v35149773421iterator = $users; $v35149773421incr = 0; $v35149773421loop = new stdClass(); $v35149773421loop->self = &$v35149773421loop; $v35149773421loop->length = count($v35149773421iterator); $v35149773421loop->index = 1; $v35149773421loop->index0 = 1; $v35149773421loop->revindex = $v35149773421loop->length; $v35149773421loop->revindex0 = $v35149773421loop->length - 1; ?><?php foreach ($v35149773421iterator as $user) { ?><?php $v35149773421loop->first = ($v35149773421incr == 0); $v35149773421loop->index = $v35149773421incr + 1; $v35149773421loop->index0 = $v35149773421incr; $v35149773421loop->revindex = $v35149773421loop->length - $v35149773421incr; $v35149773421loop->revindex0 = $v35149773421loop->length - ($v35149773421incr + 1); $v35149773421loop->last = ($v35149773421incr == ($v35149773421loop->length - 1)); ?><?php $v35149773421iterated = true; ?>
 					<tr>
-						<td><?= $user->id ?></td>
+						<td><?= $v35149773421loop->index ?></td>
 						<td class="text-center">
 							<img src="/<?= $user->avatar ?>" alt="User" width="60" height="60" class="rounded">
 						</td>
@@ -122,11 +122,11 @@
 							</a>
 							<a href="#" class="btn btn-sm btn-warning mr-1 btn-edit-user" title="Sửa" 
 							data-id="<?= $user->id ?>" data-name="<?= $user->name ?>" data-full-name="<?= $user->full_name ?>"
-							data-email="<?= $user->email ?>" data-role="<?= $user->role ?>">
+							data-email="<?= $user->email ?>" data-role="<?= $user->role ?>" data-avatar="<?= $user->avatar ?>">
 								Sửa
 							</a>
 							<?php if (($user->deleted_at)) { ?>
-								<a href="<?= $this->url->get('user/restore/' . $user->id) ?>" class="btn btn-sm btn-danger" title="Xóa">
+								<a href="<?= $this->url->get('user/restore/' . $user->id) ?>" class="btn btn-sm btn-warning" title="Xóa">
 									Khôi phục
 								</a>
 							<?php } else { ?>
@@ -136,7 +136,7 @@
 							<?php } ?>
 						</td>
 					</tr>
-				<?php } if (!$v35149773421iterated) { ?>
+				<?php $v35149773421incr++; } if (!$v35149773421iterated) { ?>
 					<tr>
 						<td class="text-center" colspan="6">Không có người dùng nào.</td>
 					</tr>
@@ -173,7 +173,10 @@
           
           <div class="form-group">
             <label for="avatar">Ảnh</label>
-            <input type="file" class="form-control" id="avatar" name="avatar">
+            <div class="avatar-preview mb-2" id="avatar_preview">
+              <img id="avatar_create_img" src="/default/default-avatar.png" width="120" height="120"></img>
+            </div>
+            <input type="file" class="form-control" id="avatar_user_create" name="avatar">
           </div>
           <div class="form-group">
             <label for="role">Quyền</label>
@@ -222,7 +225,11 @@
           </div>
           <div class="form-group">
             <label for="avatar">Ảnh</label>
-            <input type="file" class="form-control" id="avatar" name="avatar">
+            <div class="avatar-preview mb-2" id="avatar_preview">
+              <img id="avatar_img" src="" width="120" height="120"></img>
+            </div>
+            <input type="file" class="form-control" id="avatar_user_update" name="avatar">
+            <div class="text-danger error-msg" data-name="avatar"></div>
           </div>
           <div class="form-group">
             <label for="role">Quyền</label>
@@ -253,7 +260,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="userDetailModalLabel">👤 Chi tiết người dùng</h5>
+        <h5 class="modal-title" id="userDetailModalLabel">Chi tiết người dùng</h5>
         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
           <span aria-hidden="true">&times;</span>
         </button>

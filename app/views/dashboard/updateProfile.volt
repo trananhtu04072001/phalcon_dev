@@ -3,7 +3,7 @@
 
 {% block content %} 
 <div>
-    <form method="post" action="{{ url('dashboard/updateProfile') }}" enctype="multipart/form-data">
+    <form id="updateProfileForm" enctype="multipart/form-data">
         <h5 class="mb-4">Cập nhật người dùng</h5>
         <div class="row">
             <!-- Cột bên trái -->
@@ -25,7 +25,7 @@
                         <img id="avatar_img" src="/{{ userLogged['avatar'] }}" width="120" height="120"></img>
                     </div>
                     <label for="avatar">Ảnh</label>
-                    <input type="file" class="form-control" id="avatar" name="avatar">
+                    <input type="file" class="form-control" id="avatar_profile" name="avatar">
                 </div>
             </div>
             <!-- Cột bên phải -->

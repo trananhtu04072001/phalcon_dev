@@ -10,14 +10,19 @@ use App\Validations\ResetPasswordValidation;
 use App\Enums\UserRole;
 
 class AuthService extends Injectable {
-    public function register($data) {
+    public function register($data) {   
         $validator = new RegisterValidation();
-        $errors = $validator->validate($data);
-        if (count($errors)) {
-            foreach ($errors as $msg) {
-                $this->flashSession->error($msg);
+        $messages  = $validator->validate($data);
+        if (count($messages)) {
+            $errors = [];
+            foreach ($messages  as $msg) {
+                $field = $msg->getField();
+                $errors[$field] = $msg->getMessage();
             }
-            return ['success' => false, 'errors' => $errors];
+            return [
+                'success' => false,
+                'errors' => $errors
+            ];
         }
         $user = new Users();
         $user->name = $data['name'] ?? '';
@@ -25,30 +30,37 @@ class AuthService extends Injectable {
         $user->email = $data['email'] ?? '';    
         $user->phone = $data['phone'] ?? '';
         $user->avatar = 'default/default-avatar.png';
-        $user->password = $this->security->hash($data['password']) ?? '';
+        $user->password = $this->security->hash(trim($data['password'])) ?? '';
         $user->role = UserRole::ADMIN;
         if ($user->save()) {
-            $this->flashSession->success('Đăng ký thành công!');
-            return $this->response->redirect('auth/register');
+            return ['success' => true, 'message' => 'Đăng ký thành công!', 'redirect' => '/auth/login'];
         }
     }
 
     public function login($data) {
         $validator = new LoginValidation();
-        $errors = $validator->validate($data);
-        if (count($errors)) {
-            foreach ($errors as $msg) {
-                $this->flashSession->error($msg);
+        $messages  = $validator->validate($data);
+        if (count($messages)) {
+            $errors = [];
+            foreach ($messages  as $msg) {
+                $field = $msg->getField();
+                $errors[$field] = $msg->getMessage();
             }
-            return ['success' => false, 'errors' => $errors];
+            return [
+                'success' => false,
+                'errors' => $errors
+            ];
         }
         $user = Users::findFirstByEmail($data['email']);
-        if (!$user || !$this->security->checkHash($data['password'], $user->password)) {
-            $this->flashSession->error('Thông tin đăng nhập không chính xác.');
+        if (!$user || !$this->security->checkHash(trim($data['password']), $user->password)) {
+            return [
+                'success' => false,
+                'message' => 'Thông tin đăng nhập không chính xác.'
+            ];
         }
         // Đăng nhập thành công
         $this->session->set('user', $user->toArray());
-        return $this->response->redirect('dashboard');
+        return ['success' => true, 'message' => 'Đăng nhập thành công!', 'redirect' => '/dashboard'];
     }
 
     public function forgotPassword($email) {

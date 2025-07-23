@@ -28,7 +28,7 @@
 			<tbody>
 				{% for user in users %}
 					<tr>
-						<td>{{ user.id }}</td>
+						<td>{{ loop.index }}</td>
 						<td class="text-center">
 							<img src="/{{ user.avatar }}" alt="User" width="60" height="60" class="rounded">
 						</td>
@@ -43,7 +43,7 @@
 							</a>
 							<a href="#" class="btn btn-sm btn-warning mr-1 btn-edit-user" title="Sửa" 
 							data-id="{{ user.id }}" data-name="{{ user.name }}" data-full-name="{{ user.full_name }}"
-							data-email="{{ user.email }}" data-role="{{ user.role }}">
+							data-email="{{ user.email }}" data-role="{{ user.role }}" data-avatar="{{ user.avatar }}">
 								Sửa
 							</a>
 							{% if (user.deleted_at)  %}
