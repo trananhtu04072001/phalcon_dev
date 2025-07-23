@@ -36,6 +36,16 @@ class Helper {
         return null;
     }
 
+    public function deleteImage($filename, $folder = 'uploads/avatars/') {
+        $filePath = APP_PATH . '/public/' . $folder . $filename;
+
+        if (file_exists($filePath)) {
+            return unlink($filePath);
+        }
+        return false;
+    }
+
+
     public function queueJobs(string $type, array $payload) {
         $job = new QueueJobs();
         $job->type = $type;

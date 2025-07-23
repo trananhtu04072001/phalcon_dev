@@ -1,19 +1,100 @@
 // Sidebar active state with jQuery
 $(function() {
     $('#sidebarMenu li').on('click', function() {
-        console.log('123333');
-        
         $('#sidebarMenu li').removeClass('active');
         $(this).addClass('active');
     });
 });
 
 $(document).ready(function () {
+   // Lắng nghe sự kiện nhập liệu ở tất cả input, textarea, select
+  $('#registerForm, #loginForm').on('input change', 'input, textarea, select', function () {
+    var fieldName = $(this).attr('name');    
+    if (fieldName) {
+      $(`.error-msg[data-name="${fieldName}"]`).text('');
+    }
+  });
+
+  $('body').on('input change', '#createUserForm input, #createUserForm textarea, #createUserForm select, #updateUserForm input, #updateUserForm textarea, #updateUserForm select', function () {
+    var fieldName = $(this).attr('name');
+    if (fieldName) {
+      $(`.error-msg[data-name="${fieldName}"]`).text('');
+    }
+  });
+
+  // Register account admin
+  $('#registerForm').on('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(this); 
+    $.ajax({
+      url: '/auth/register',
+      method: 'POST',
+      data: formData,
+      processData: false,   // không xử lý dữ liệu (do đang dùng FormData)
+      contentType: false,   // không đặt Content-Type (để jQuery tự set multipart/form-data)
+      success: function (response) {
+        toastr.success(response.message);
+        setTimeout(function () {
+          window.location.href = response.redirect;
+        }, 1500);
+      },
+      error: function (xhr) {
+        try {
+          const res = JSON.parse(xhr.responseText);
+          if (res.errors) {
+            for (let key in res.errors) {
+              $(`.error-msg[data-name="${key}"]`).text(res.errors[key]);
+            }
+          } else {
+            alert('Lỗi: ' + res.message || 'Không rõ lỗi');
+          }
+        } catch (e) {
+          console.error("Không parse được JSON:", e);
+          console.log(xhr.responseText);
+        }
+      }
+    });
+  });
+
+  // Login account Admin
+  $('#loginForm').on('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(this); 
+    $.ajax({
+      url: '/auth/login',
+      method: 'POST',
+      data: formData,
+      processData: false,   // không xử lý dữ liệu (do đang dùng FormData)
+      contentType: false,   // không đặt Content-Type (để jQuery tự set multipart/form-data)
+      success: function (response) {
+        toastr.success(response.message);
+        setTimeout(function () {
+          window.location.href = response.redirect || '/dashboard';
+        }, 1500);
+      },
+      error: function (xhr) {
+        try {
+          const res = JSON.parse(xhr.responseText);
+          if (res.errors) {
+            for (let key in res.errors) {
+              $(`.error-msg[data-name="${key}"]`).text(res.errors[key]);
+            }
+          } else {
+            toastr.error('Lỗi: ' + res.message || 'Không rõ lỗi');  
+          }
+        } catch (e) {
+          console.error("Không parse được JSON:", e);
+          console.log(xhr.responseText);
+        }
+      }
+    });
+  });
+
   $('#createUserForm').on('submit', function (e) {
     e.preventDefault();
     var formData = new FormData(this); 
     $.ajax({
-      url: 'user/create', // URL xử lý tạo user
+      url: '/user/create', // URL xử lý tạo user
       method: 'POST',
       data: formData,
       processData: false,   // không xử lý dữ liệu (do đang dùng FormData)
@@ -50,6 +131,7 @@ $(document).ready(function () {
     $('#edit_full_Name').val($(this).data('fullName'));
     $('#edit_email').val($(this).data('email'));
     $('#edit_role').val($(this).data('role'));
+    $('#avatar_img').attr('src', '/'+$(this).data('avatar'));
     $("#updateUserModal").modal("show");
   });
 
@@ -57,7 +139,7 @@ $(document).ready(function () {
     e.preventDefault();
     var formData = new FormData(this); 
     $.ajax({
-      url: `user/update/${user_edit_id}`, // URL xử lý cập nhật user
+      url: `/user/update/${user_edit_id}`, // URL xử lý cập nhật user
       method: 'POST',
       data: formData,
       processData: false,   // không xử lý dữ liệu (do đang dùng FormData)
@@ -87,6 +169,39 @@ $(document).ready(function () {
     });
   });
 
+    $('#updateProfileForm').on('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(this); 
+    $.ajax({
+      url: `/dashboard/updateProfile`, // URL xử lý cập nhật profile
+      method: 'POST',
+      data: formData,
+      processData: false,   // không xử lý dữ liệu (do đang dùng FormData)
+      contentType: false,   // không đặt Content-Type (để jQuery tự set multipart/form-data)
+      success: function (response) {
+        toastr.success(response.message);
+        setTimeout(function () {
+          window.location.href = response.redirect || '/dashboard/updateProfile';
+        }, 1500);
+      },
+      error: function (xhr) {
+        try {
+          const res = JSON.parse(xhr.responseText);
+          if (res.errors) {
+            for (let key in res.errors) {
+              $(`.error-msg[data-name="${key}"]`).text(res.errors[key]);
+            }
+          } else {
+            alert('Lỗi: ' + res.message || 'Không rõ lỗi');
+          }
+        } catch (e) {
+          console.error("Không parse được JSON:", e);
+          console.log(xhr.responseText);
+        }
+      }
+    });
+  });
+
   $('.btn-show-user').on("click", function() {
     $('#detail_name').text($(this).data('name'));
     $('#detail_full_name').text($(this).data('fullName'));
@@ -96,7 +211,7 @@ $(document).ready(function () {
     $("#userDetailModal").modal("show");
   });
 
-  $('#avatar').on('change', function (e) {
+  $('#avatar_profile').on('change', function (e) {
       const file = e.target.files[0];
       if (file && file.type.startsWith('image/')) {
           const reader = new FileReader();
@@ -107,6 +222,32 @@ $(document).ready(function () {
       } else {
           alert("Vui lòng chọn tệp hình ảnh hợp lệ.");
       }
+  });
+
+  $('#avatar_user_update').on('change', function (e) {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            $('#avatar_img').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(file);
+    } else {
+        alert("Vui lòng chọn tệp hình ảnh hợp lệ.");
+    }
+  });
+
+  $('#avatar_user_create').on('change', function (e) {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            $('#avatar_create_img').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(file);
+    } else {
+        alert("Vui lòng chọn tệp hình ảnh hợp lệ.");
+    }
   });
 
   setTimeout(function () {

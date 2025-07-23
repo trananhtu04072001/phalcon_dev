@@ -45,13 +45,21 @@ class UserService extends Injectable {
     }
 
     public function update($id, $data, $reqFile) {
+        // if (!empty($reqFile) && $reqFile[0]->getSize() > 0) {
+        //     $data['avatar'] = $reqFile[0];
+        // }
         $validator = new UpdateUserValidation($id);
-        $errors = $validator->validate($data);
-        if (count($errors)) {
-            foreach ($errors as $msg) {
-                $this->flashSession->error($msg);
+        $messages  = $validator->validate($data);
+        if (count($messages)) {
+            $errors = [];
+            foreach ($messages  as $msg) {
+                $field = $msg->getField();
+                $errors[$field] = $msg->getMessage();
             }
-            return ['success' => false, 'errors' => $errors];
+            return [
+                'success' => false,
+                'errors' => $errors
+            ];
         }
         $user = Users::findFirstById($id ?? null);
         if (!empty($data)) {
@@ -83,11 +91,15 @@ class UserService extends Injectable {
         if (count($messages)) {
             $errors = [];
             foreach ($messages  as $msg) {
-                $this->flashSession->error($msg);
+                $field = $msg->getField();
+                $errors[$field] = $msg->getMessage();
             }
-            return ['success' => false, 'errors' => $errors];
+            return [
+                'success' => false,
+                'errors' => $errors
+            ];
         }
-            $user = Users::findFirstById($id ?? null);
+        $user = Users::findFirstById($id ?? null);
         if (!empty($data)) {
             $user->name = $data['name'] ?? '';
             $user->full_name = $data['full_name'] ?? '';
@@ -101,7 +113,10 @@ class UserService extends Injectable {
         }
         if ($user->save()) {
             $this->session->set('user', $user->toArray());
-            $this->flashSession->success('Cập nhật thành công!');
+            return [
+                'success' => true,
+                'message' => 'Cập nhật thành công!'
+            ];
             return $this->response->redirect('dashboard/updateProfile');
         }
     }

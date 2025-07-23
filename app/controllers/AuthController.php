@@ -6,12 +6,18 @@ class AuthController extends ControllerBase
     {
         if ($this->request->getPost()) {
             $result = $this->authService->login($this->request->getPost());
+            return $this->response
+                ->setStatusCode($result['success'] ? 201 : 422)
+                ->setJsonContent($result);
         }
     }
 
     public function registerAction() {
         if ($this->request->getPost()) {
             $result = $this->authService->register($this->request->getPost());
+                return $this->response
+                ->setStatusCode($result['success'] ? 201 : 422)
+                ->setJsonContent($result);
         }
     }
 

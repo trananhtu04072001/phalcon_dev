@@ -9,6 +9,7 @@ use Phalcon\Validation\Validator\StringLength;
 use Phalcon\Validation\Validator\Regex;
 use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Uniqueness;
+use Phalcon\Validation\Validator\File as FileValidator;
 use App\Models\Users;
 
 class UpdateUserValidation extends Validation
@@ -46,5 +47,19 @@ class UpdateUserValidation extends Validation
         $this->add('role', new PresenceOf([
             'message' => 'Quyền không được để trống.',
         ]));
+        // $this->add(
+        //     'avatar',
+        //     new FileValidator([
+        //         'maxSize'      => '2M', // tối đa 2MB
+        //         'messageSize'  => 'Ảnh không được vượt quá 2MB',
+        //         'allowedTypes' => [
+        //             'image/jpeg',
+        //             'image/png',
+        //             'image/gif',
+        //             'image/webp'
+        //         ],
+        //         'messageType'  => 'Chỉ cho phép các định dạng: jpg, png, gif, webp',
+        //     ])
+        // );
     }
 }

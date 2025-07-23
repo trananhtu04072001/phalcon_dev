@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content shadow-lg border-0">
       <div class="modal-header bg-primary text-white">
-        <h5 class="modal-title" id="userDetailModalLabel">👤 Chi tiết người dùng</h5>
+        <h5 class="modal-title" id="userDetailModalLabel">Chi tiết người dùng</h5>
         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Đóng">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -27,7 +27,10 @@
           
           <div class="form-group">
             <label for="avatar">Ảnh</label>
-            <input type="file" class="form-control" id="avatar" name="avatar">
+            <div class="avatar-preview mb-2" id="avatar_preview">
+              <img id="avatar_create_img" src="/default/default-avatar.png" width="120" height="120"></img>
+            </div>
+            <input type="file" class="form-control" id="avatar_user_create" name="avatar">
           </div>
           <div class="form-group">
             <label for="role">Quyền</label>

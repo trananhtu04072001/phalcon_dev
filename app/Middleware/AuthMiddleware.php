@@ -22,7 +22,8 @@ class AuthMiddleware extends Plugin
             $this->response->redirect('auth/login')->send();
             return false;
         } else {
-            if ($this->session->get('user')['role'] == UserRole::ADMIN) {
+            if ($this->session->get('user')['role'] == UserRole::ADMIN && 
+                is_null($this->session->get('user')['deleted_at'])) {
                 return true;
             }
         }

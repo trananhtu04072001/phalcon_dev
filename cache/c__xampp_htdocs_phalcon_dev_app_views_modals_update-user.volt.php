@@ -26,7 +26,11 @@
           </div>
           <div class="form-group">
             <label for="avatar">Ảnh</label>
-            <input type="file" class="form-control" id="avatar" name="avatar">
+            <div class="avatar-preview mb-2" id="avatar_preview">
+              <img id="avatar_img" src="" width="120" height="120"></img>
+            </div>
+            <input type="file" class="form-control" id="avatar_user_update" name="avatar">
+            <div class="text-danger error-msg" data-name="avatar"></div>
           </div>
           <div class="form-group">
             <label for="role">Quyền</label>
