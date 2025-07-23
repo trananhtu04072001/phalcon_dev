@@ -22,7 +22,9 @@ class LoginValidation extends Validation {
         ]));
         $this->add('password', new StringLength([
             'min' => 6,
-            'message' => 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'max' => 20,
+            'messageMinimum' => 'Mật khẩu phải có ít nhất 6 ký tự.',
+            'messageMaximum' => 'Mật khẩu không được vượt quá 20 ký tự.',
         ]));
     }
 }

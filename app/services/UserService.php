@@ -29,7 +29,7 @@ class UserService extends Injectable {
             $user->full_name = $data['full_name'] ?? '';
             $user->email = $data['email'] ?? '';    
             $user->phone = $data['phone'] ?? '';
-            $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar') ?? '/default/default-avatar.png';
+            $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar') ?? 'default/default-avatar.png';
             $passwordPlain = bin2hex(random_bytes(4));
             $user->password = $this->security->hash($passwordPlain) ?? '';
             $user->role = $data['role'] ?? UserRole::USER;
@@ -67,7 +67,7 @@ class UserService extends Injectable {
             $this->helpers->queueJobs('auto_reset_password', ['email' => $user->email, 'password' => $passwordPlain]);
         }
         if (!empty($reqFile) && isset($reqFile[0]) && $reqFile[0]->getError() === UPLOAD_ERR_OK) {
-            $user->avatar = $this->helpers->upload($reqFile[0], 'avatar') ?? '/default/default-avatar.png';
+            $user->avatar = $this->helpers->upload($reqFile[0], 'avatar') ?? 'default/default-avatar.png';
         }
         if ($user->save()) {
             return [
@@ -117,5 +117,23 @@ class UserService extends Injectable {
             'conditions' => $conditions,
             'bind'       => $params,
         ]);
+    }
+
+    public function softDelete($id) {
+        $user = Users::findFirstById($id);
+        if ($user) {
+            $user->deleted_at = date('Y-m-d H:i:s');
+            return $user->save();
+        }
+        return false;
+    }
+
+    public function restore($id) {
+        $user = Users::findFirstById($id);
+        if ($user && $user->deleted_at !== null) {
+            $user->deleted_at = null;
+            return $user->save();
+        }
+        return false;
     }
 }

@@ -92,7 +92,7 @@ $(document).ready(function () {
     $('#detail_full_name').text($(this).data('fullName'));
     $('#detail_email').text($(this).data('email'));
     $('#detail_role').text($(this).data('role'));
-    $('#detail_avatar').attr('src', $(this).data('avatar'));
+    $('#detail_avatar').attr('src', '/'+$(this).data('avatar'));
     $("#userDetailModal").modal("show");
   });
 
