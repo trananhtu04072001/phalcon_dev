@@ -59,3 +59,8 @@
   height: 120px;
   background-color: #dfdfdf;
 }
+
+.text-required {
+  color: red !important;
+  font-size: 20px !important;
+}

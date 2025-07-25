@@ -255,4 +255,10 @@ $(document).ready(function () {
         $(this).remove();
     });
   }, 3000);
+
+  $('.avatar-img').on('click', function () {
+    let src = $(this).attr('src');
+    $('#preview_avatar_modal').attr('src', src);
+    $('#avatarPreviewModal').modal('show');
+  });
 });

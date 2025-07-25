@@ -36,9 +36,8 @@ class Helper {
         return null;
     }
 
-    public function deleteImage($filename, $folder = 'uploads/avatars/') {
-        $filePath = APP_PATH . '/public/' . $folder . $filename;
-
+    public function deleteImage($filename, $folder = 'avatar/') {
+        $filePath = 'public/' . $folder . $filename;
         if (file_exists($filePath)) {
             return unlink($filePath);
         }
