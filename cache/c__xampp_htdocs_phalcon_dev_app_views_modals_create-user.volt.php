@@ -11,16 +11,19 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="name">Tên đăng nhập</label>
+            <span class="text-required">*</span>
             <input type="text" class="form-control" id="name" name="name">
             <div class="text-danger error-msg" data-name="name"></div>
           </div>
           <div class="form-group">
             <label for="fullName">Tên đầy đủ</label>
+            <span class="text-required">*</span>
             <input type="text" class="form-control" id="fullName" name="full_name">
             <div class="text-danger error-msg" data-name="full_name"></div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
+            <span class="text-required">*</span>
             <input type="email" class="form-control" id="email" name="email">
             <div class="text-danger error-msg" data-name="email"></div>
           </div>
@@ -34,6 +37,7 @@
           </div>
           <div class="form-group">
             <label for="role">Quyền</label>
+            <span class="text-required">*</span>
             <select class="form-control" id="role" name="role">
               <option value="">Chọn quyền</option>
               <option value="user">User</option>

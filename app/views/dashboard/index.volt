@@ -30,7 +30,7 @@
 					<tr>
 						<td>{{ loop.index }}</td>
 						<td class="text-center">
-							<img src="/{{ user.avatar }}" alt="User" width="60" height="60" class="rounded">
+							<img class="avatar-img" src="/{{ user.avatar }}" alt="User" width="60" height="60" class="rounded">
 						</td>
 						<td>{{ user.name }}</td>
 						<td>{{ user.full_name }}</td>
@@ -68,4 +68,5 @@
 	{% include 'modals/create-user.volt' %}
 	{% include 'modals/update-user.volt' %}
 	{% include 'modals/show-user.volt' %}
+	{% include 'modals/preview-image.volt' %}
 {% endblock %}

@@ -75,6 +75,8 @@ class UserService extends Injectable {
             $this->helpers->queueJobs('auto_reset_password', ['email' => $user->email, 'password' => $passwordPlain]);
         }
         if (!empty($reqFile) && isset($reqFile[0]) && $reqFile[0]->getError() === UPLOAD_ERR_OK) {
+            $fileName = basename($user->avatar);
+            $this->helpers->deleteImage($fileName);
             $user->avatar = $this->helpers->upload($reqFile[0], 'avatar') ?? 'default/default-avatar.png';
         }
         if ($user->save()) {
@@ -106,6 +108,8 @@ class UserService extends Injectable {
             $user->email = $data['email'] ?? '';
         }
         if (!empty($reqFile) && isset($reqFile[0]) && $reqFile[0]->getError() === UPLOAD_ERR_OK) {
+            $fileName = basename($user->avatar);
+            $this->helpers->deleteImage($fileName);
             $user->avatar = $this->helpers->upload($reqFile['0'], 'avatar');
         } 
         if ($data['password']) {

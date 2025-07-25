@@ -109,7 +109,7 @@
 					<tr>
 						<td><?= $v35149773421loop->index ?></td>
 						<td class="text-center">
-							<img src="/<?= $user->avatar ?>" alt="User" width="60" height="60" class="rounded">
+							<img class="avatar-img" src="/<?= $user->avatar ?>" alt="User" width="60" height="60" class="rounded">
 						</td>
 						<td><?= $user->name ?></td>
 						<td><?= $user->full_name ?></td>
@@ -157,16 +157,19 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="name">Tên đăng nhập</label>
+            <span class="text-required">*</span>
             <input type="text" class="form-control" id="name" name="name">
             <div class="text-danger error-msg" data-name="name"></div>
           </div>
           <div class="form-group">
             <label for="fullName">Tên đầy đủ</label>
+            <span class="text-required">*</span>
             <input type="text" class="form-control" id="fullName" name="full_name">
             <div class="text-danger error-msg" data-name="full_name"></div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
+            <span class="text-required">*</span>
             <input type="email" class="form-control" id="email" name="email">
             <div class="text-danger error-msg" data-name="email"></div>
           </div>
@@ -180,6 +183,7 @@
           </div>
           <div class="form-group">
             <label for="role">Quyền</label>
+            <span class="text-required">*</span>
             <select class="form-control" id="role" name="role">
               <option value="">Chọn quyền</option>
               <option value="user">User</option>
@@ -210,16 +214,19 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="name">Tên đăng nhập</label>
+            <span class="text-required">*</span>
             <input type="text" class="form-control" id="edit_name" name="name">
             <div class="text-danger error-msg" data-name="name"></div>
           </div>
           <div class="form-group">
             <label for="fullName">Tên đầy đủ</label>
+            <span class="text-required">*</span>
             <input type="text" class="form-control" id="edit_full_Name" name="full_name">
             <div class="text-danger error-msg" data-name="full_name"></div>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
+            <span class="text-required">*</span>
             <input type="email" class="form-control" id="edit_email" name="email">
             <div class="text-danger error-msg" data-name="email"></div>
           </div>
@@ -233,6 +240,7 @@
           </div>
           <div class="form-group">
             <label for="role">Quyền</label>
+            <span class="text-required">*</span>
             <select class="form-control" id="edit_role" name="role">
               <option value="">Chọn quyền</option>
               <option value="user">User</option>
@@ -283,6 +291,27 @@
     </div>
   </div>
 </div>
+	<!-- Modal Preview Avatar -->
+<div class="modal fade" id="avatarPreviewModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-body position-relative p-0 d-flex justify-content-center" style="background: rgba(0, 0, 0, 0.6); border-radius: 0.5rem;">
+        
+        <!-- Nút đóng -->
+        <button type="button" class="btn-close position-absolute" 
+                style="top: 10px; right: 10px; background-color: white; opacity: 0.8; border: none;"
+                data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+        <!-- Ảnh preview -->
+        <img id="preview_avatar_modal" src="" class="img-fluid rounded shadow" style="max-height: 80vh; object-fit: contain;">
+      
+      </div>
+    </div>
+  </div>
+</div>
+
 
             </main>
         </div>

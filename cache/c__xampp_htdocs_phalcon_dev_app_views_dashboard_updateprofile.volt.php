@@ -88,12 +88,14 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="name">Tên đăng nhập</label>
+                    <span class="text-required">*</span>
                     <input type="text" class="form-control" name="name" value="<?= $userLogged['name'] ?>">
                     <div class="text-danger error-msg" data-name="name"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email</label>
+                    <span class="text-required">*</span>
                     <input type="email" class="form-control" name="email" value="<?= $userLogged['email'] ?>">
                     <div class="text-danger error-msg" data-name="email"></div>
                 </div>
@@ -110,6 +112,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="fullName">Tên đầy đủ</label>
+                    <span class="text-required">*</span>
                     <input type="text" class="form-control" name="full_name" value="<?= $userLogged['full_name'] ?>">
                     <div class="text-danger error-msg" data-name="full_name"></div>
                 </div>
